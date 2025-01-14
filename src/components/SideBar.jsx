@@ -8,12 +8,20 @@ import {  Menu,
   Settings,
   LogOut,
   ChevronDown,
-  Database,
+  Wrench,
   MessageSquare} from "lucide-react";
 
 const SideBar = () => {
     const [isExpanded, setIsExpanded] = useState(true);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+
+     const menuItems = [
+       { icon: Home, label: "Dashboard", color: "#4F46E5" }, // Indigo
+       { icon: Phone, label: "Calls", color: "#059669" }, // Emerald
+       { icon: Calendar, label: "Appointments", color: "#DC2626" }, // Red
+       { icon: Users, label: "Assistants", color: "#2563EB" }, // Blue
+       { icon: MessageSquare, label: "Messages", color: "#7C3AED" }, // Purple
+     ];
 
     const toggleSidebar = () =>{
         setIsExpanded(!isExpanded);
@@ -55,11 +63,90 @@ const SideBar = () => {
           <p className="text-sm text-gray-500">harisali@gmail.com</p>
         </div>
       )}
+      {/** Menu Items */}
+      <nav className="flex-1 p-4">
+        <ul className="space-y-4">
+            {menuItems.map((item) => (
+            <li key={item.label} className="group">
+              <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-150">
+                <item.icon
+                  size={20}
+                  className="min-w-5"
+                  color={item.color}
+                  strokeWidth={1.5}
+                />
+                {isExpanded && (
+                  <span className="text-gray-700 group-hover:text-gray-900">
+                    {item.label}
+                  </span>
+                )}
+                {!isExpanded && (
+                  <div className="absolute left-16 bg-gray-800 text-white px-2 py-1 rounded ml-2 text-sm invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all">
+                    {item.label}
+                  </div>
+                )}
+              </div>
+            </li>
+          ))}
+        </ul>
+      </nav>
+      {/* Settings Section */}
+      <div className="p-4 border-t border-gray-100">
+        <div
+          className={`text-gray-700 font-medium flex items-center cursor-pointer hover:bg-gray-50 p-2 rounded-lg transition-all ${
+            !isExpanded ? "justify-center group" : "justify-between"
+          }`}
+          onClick={() => isExpanded && setIsSettingsOpen(!isSettingsOpen)}
+        >
+          <div className="flex items-center gap-3">
+            <Settings
+              size={20}
+              className="min-w-5"
+              color="#F59E0B"
+              strokeWidth={1.5}
+            />
+            {isExpanded && <span>Settings</span>}
+          </div>
+          {isExpanded && (
+            <ChevronDown
+              className={`w-4 h-4 transform transition-transform ${
+                isSettingsOpen ? "rotate-180" : ""
+              }`}
+            />
+          )}
+          {!isExpanded && (
+            <div className="absolute left-16 bg-gray-800 text-white px-2 py-1 rounded ml-2 text-sm invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all">
+              Settings
+            </div>
+          )}
+        </div>
+        {isExpanded && isSettingsOpen && (
+          <ul className="mt-2 ml-4 space-y-2 text-gray-600 text-sm">
+            <li className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-lg cursor-pointer transition-all">
+              <Wrench size={16} color="#6366F1" strokeWidth={1.5} />
+              <span>User Settings</span>
+            </li>
+            <li className="flex items-center gap-2 p-2 hover:bg-gray-50 rounded-lg cursor-pointer transition-all">
+              <Wrench size={16} color="#8B5CF6" strokeWidth={1.5} />
+              <span>others</span>
+            </li>
+          </ul>
+        )}
+      </div>
 
       {/* Logout */}
       <div className="p-4">
-        <button className={`w-full text-gray-700 hover:bg-gray-50 hover:text-red-600 p-2 rounded-lg transition-all flex items-center gap-3 ${!isExpanded ? "justify-center group" : ""}`}>
-          <LogOut size={20} className="min-w-5" color="#EF4444" strokeWidth={1.5}/>
+        <button
+          className={`w-full text-gray-700 hover:bg-gray-50 hover:text-red-600 p-2 rounded-lg transition-all flex items-center gap-3 ${
+            !isExpanded ? "justify-center group" : ""
+          }`}
+        >
+          <LogOut
+            size={20}
+            className="min-w-5"
+            color="#EF4444"
+            strokeWidth={1.5}
+          />
           {isExpanded && <span>Logout</span>}
           {!isExpanded && (
             <div className="absolute left-16 bg-gray-800 text-white px-2 py-1 rounded ml-2 text-sm invisible opacity-0 group-hover:visible group-hover:opacity-100 transition-all">
