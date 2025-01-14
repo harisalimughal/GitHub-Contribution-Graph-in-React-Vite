@@ -1,12 +1,19 @@
 import React from "react";
-import CallsHeatmap from "./CallsHeatmap";
+import CallsHeatmap from "./components/CallsHeatmap";
+import SideBar from "./components/SideBar"
 
-function App() {
+
+const App = () => {
   return (
-    <div className="min-h-screen bg-gray-900 text-white flex justify-center items-center">
-      <CallsHeatmap />
+    <div className="min-h-screen flex bg-gray-50">
+      <SideBar />
+      <main className="flex-1 flex justify-end">
+        <div className="max-w-6xl w-full px-8 py-6 mr-16 mt-16">
+          <CallsHeatmap />
+        </div>
+      </main>
     </div>
   );
-}
+};
 
 export default App;
