@@ -1,16 +1,43 @@
 import React, { useMemo } from "react";
 
 const CallsHeatmap = () => {
-  const callData = [
-    { date: "2025-01-01", phoneNumber: "+92 3058884771" },
-    { date: "2025-01-01", phoneNumber: "+92 3058884772" },
-    { date: "2025-01-02", phoneNumber: "+92 3058884771" },
-    { date: "2025-01-02", phoneNumber: "+92 3058884773" },
-    { date: "2025-01-03", phoneNumber: "+92 3058884771" },
-    { date: "2025-01-03", phoneNumber: "+92 3058884772" },
-    { date: "2025-01-03", phoneNumber: "+92 3058884771" },
-    { date: "2025-01-03", phoneNumber: "+92 3058884772" }, // 4 calls on same date (more intensity)
-  ];
+const callData = [
+  // January Calls
+  { date: "2025-01-01", phoneNumber: "+92 3058884771" },
+  { date: "2025-01-01", phoneNumber: "+92 3058884772" },
+  { date: "2025-01-02", phoneNumber: "+92 3058884771" },
+  { date: "2025-01-02", phoneNumber: "+92 3058884773" },
+  { date: "2025-01-03", phoneNumber: "+92 3058884771" },
+  { date: "2025-01-03", phoneNumber: "+92 3058884772" },
+  { date: "2025-01-03", phoneNumber: "+92 3058884771" },
+  { date: "2025-01-03", phoneNumber: "+92 3058884772" }, // 4 calls on this date
+
+  // February Calls
+  { date: "2025-02-10", phoneNumber: "+92 3058884773" },
+  { date: "2025-02-14", phoneNumber: "+92 3058884774" },
+  { date: "2025-02-14", phoneNumber: "+92 3058884775" }, // 2 calls on Valentine's Day
+
+  // March Calls
+  { date: "2025-03-01", phoneNumber: "+92 3058884776" },
+  { date: "2025-03-15", phoneNumber: "+92 3058884777" },
+  { date: "2025-03-15", phoneNumber: "+92 3058884778" }, // 2 calls
+
+  // June Calls
+  { date: "2025-06-21", phoneNumber: "+92 3058884779" },
+  { date: "2025-06-21", phoneNumber: "+92 3058884780" },
+  { date: "2025-06-22", phoneNumber: "+92 3058884781" }, // Spread across two days
+
+  // July Calls
+  { date: "2025-07-03", phoneNumber: "+92 3058884772" },
+
+  // October Calls
+  { date: "2025-10-31", phoneNumber: "+92 3058884782" }, // Halloween call
+
+  // December Calls
+  { date: "2025-12-25", phoneNumber: "+92 3058884783" }, // Christmas call
+  { date: "2025-12-31", phoneNumber: "+92 3058884784" }, // New Year's Eve call
+];
+
 
   // Process data to get counts per day
   const dailyCounts = useMemo(() => {
