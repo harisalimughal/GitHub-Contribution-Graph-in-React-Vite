@@ -9,7 +9,10 @@ import {  Menu,
   LogOut,
   ChevronDown,
   Wrench,
-  MessageSquare} from "lucide-react";
+  MessageSquare,
+ ChevronLeft,
+ChevronRight
+} from "lucide-react";
 
 const SideBar = () => {
     const [isExpanded, setIsExpanded] = useState(true);
@@ -36,26 +39,35 @@ const SideBar = () => {
         isExpanded ? "w-64" : "w-16"
       }`}
     >
-      {/* Toggle Button */}
-      <button
-        onClick={toggleSidebar}
-        className="absolute -right-3 top-4 bg-green p-1.5 rounded-full shadow-lg border-gray-200 hover:bg-gray-50 hover:text-green-600 transition-colors"
-      >
-        {isExpanded ? <X size={16} /> : <Menu size={16} />}
-      </button>
-
-      {/** Header */}
-      <div className="p-4 flex items-center gap-3">
-        <div className="h-10 w-10 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full flex justify-center items-center shadow-lg">
-          <span className="text-xl font-bold"> H</span>
+      {/* Header with integrated toggle button */}
+      <div className="p-4 flex items-center justify-between border-b border-gray-100">
+        <div className="flex items-center gap-3">
+          <div className="h-10 w-10 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full flex justify-center items-center shadow-lg">
+            <span className="text-xl font-bold">H</span>
+          </div>
+          {isExpanded && (
+            <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              Haris
+            </span>
+          )}
         </div>
-        {isExpanded && (
-          <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            Haris
-          </span>
-        )}
+        <button
+          onClick={toggleSidebar}
+          className="p-2 hover:bg-gray-100 rounded-lg transition-all duration-300 group"
+        >
+          {isExpanded ? (
+            <ChevronLeft
+              size={20}
+              className="text-gray-600 group-hover:text-blue-600 transform transition-transform duration-300 group-hover:scale-110"
+            />
+          ) : (
+            <ChevronRight
+              size={20}
+              className="text-gray-600 group-hover:text-blue-600 transform transition-transform duration-300 group-hover:scale-110"
+            />
+          )}
+        </button>
       </div>
-
       {/* User Info */}
       {isExpanded && (
         <div className="px-4 py-3 mx-3 bg-gray-50 rounded-lg">
@@ -66,7 +78,7 @@ const SideBar = () => {
       {/** Menu Items */}
       <nav className="flex-1 p-4">
         <ul className="space-y-4">
-            {menuItems.map((item) => (
+          {menuItems.map((item) => (
             <li key={item.label} className="group">
               <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-150">
                 <item.icon
