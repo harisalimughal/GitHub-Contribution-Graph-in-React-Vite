@@ -1,0 +1,22 @@
+/* styles.css or a similar CSS file */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animated-gradient {
+  @apply bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500;
+  background-size: 200% 200%;
+  animation: gradient-animation 3s ease infinite;
+}
