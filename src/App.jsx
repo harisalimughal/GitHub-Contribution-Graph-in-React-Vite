@@ -1,18 +1,23 @@
 import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import SideBar from "./components/SideBar";
+import Dashboard from "./components/Dashboard";
 import CallsHeatmap from "./components/CallsHeatmap";
-import SideBar from "./components/SideBar"
-
 
 const App = () => {
   return (
-    <div className="min-h-screen flex bg-gray-50">
-      <SideBar />
-      <main className="flex-1 flex justify-end">
-        <div className="max-w-6xl w-full px-8 py-6 mr-16 mt-16">
-          <CallsHeatmap />
-        </div>
-      </main>
-    </div>
+    <Router>
+      <div className="min-h-screen flex bg-gray-50">
+        <SideBar />
+        <main className="flex-1">
+          <Routes>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/calls" element={<CallsHeatmap />} />
+            {/* Add more routes here as needed */}
+          </Routes>
+        </main>
+      </div>
+    </Router>
   );
 };
 

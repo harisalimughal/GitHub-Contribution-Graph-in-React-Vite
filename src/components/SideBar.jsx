@@ -13,18 +13,35 @@ import {  Menu,
  ChevronLeft,
 ChevronRight
 } from "lucide-react";
+import { useNavigate} from 'react-router-dom';
 
 const SideBar = () => {
     const [isExpanded, setIsExpanded] = useState(true);
     const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+    const navigate = useNavigate();
 
-     const menuItems = [
-       { icon: Home, label: "Dashboard", color: "#4F46E5" }, // Indigo
-       { icon: Phone, label: "Calls", color: "#059669" }, // Emerald
-       { icon: Calendar, label: "Appointments", color: "#DC2626" }, // Red
-       { icon: Users, label: "Assistants", color: "#2563EB" }, // Blue
-       { icon: MessageSquare, label: "Messages", color: "#7C3AED" }, // Purple
-     ];
+    const menuItems = [
+      { icon: Home, label: "Dashboard", color: "#4F46E5", path: "/dashboard" }, // Path to Dashboard
+      { icon: Phone, label: "Calls", color: "#059669", path: "/calls" }, // Path to Calls
+      {
+        icon: Calendar,
+        label: "Appointments",
+        color: "#DC2626",
+        path: "/appointments",
+      }, // Path to Appointments
+      {
+        icon: Users,
+        label: "Assistants",
+        color: "#2563EB",
+        path: "/assistants",
+      }, // Path to Assistants
+      {
+        icon: MessageSquare,
+        label: "Messages",
+        color: "#7C3AED",
+        path: "/messages",
+      }, // Path to Messages
+    ];
 
     const toggleSidebar = () =>{
         setIsExpanded(!isExpanded);
@@ -80,7 +97,9 @@ const SideBar = () => {
         <ul className="space-y-4">
           {menuItems.map((item) => (
             <li key={item.label} className="group">
-              <div className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-150">
+              <div 
+              onClick={() => navigate(item.path)}  
+              className="flex items-center gap-3 p-2 rounded-lg hover:bg-gray-50 cursor-pointer transition-all duration-150">
                 <item.icon
                   size={20}
                   className="min-w-5"
