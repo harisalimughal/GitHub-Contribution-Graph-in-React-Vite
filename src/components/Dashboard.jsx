@@ -1,19 +1,63 @@
-import React, { useState } from 'react'
+import React, { useState } from "react";
 
 const Dashboard = () => {
+  const [messages, setMessages] = useState([
+    { type: "bot", text: "Hello! How can I assist you today?" },
+    { type: "user", text: "What is the weather like today?" },
+    {
+      type: "bot",
+      text: "The weather is sunny with a high of 75°F. Do you want a detailed forecast?",
+    },
+  ]);
+  const [input, setInput] = useState("");
+
+  const handleSend = () => {
+    if (input.trim()) {
+      setMessages([...messages, { type: "user", text: input }]);
+      setInput("");
+      setTimeout(() => {
+        setMessages((prev) => [
+          ...prev,
+          {
+            type: "bot",
+            text: "I'm working on getting that information for you!",
+          },
+        ]);
+      }, 1000);
+    }
+  };
+
+  const handleRegenerate = (index) => {
+    setMessages((prev) => [
+      ...prev,
+      {
+        type: "bot",
+        text: "Here's a regenerated response for your question.",
+      },
+    ]);
+  };
+
+  const handleLike = (index) => {
+    // Implement like functionality
+    console.log("Liked message at index:", index);
+  };
+
+  const handleDislike = (index) => {
+    // Implement dislike functionality
+    console.log("Disliked message at index:", index);
+  };
 
   return (
     <div className="max-w-3xl mx-auto p-6 bg-gradient-to-br from-white to-gray-50 rounded-xl shadow-2xl border border-gray-200/50 transition-all duration-300 hover:shadow-indigo-200/20">
-      <div className="  items-center justify-between mb-6">
-        <div className="flex items-center justify-between gap-4">
-          <div className="flex items-center  gap-4">
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-4">
             <h1 className="text-xl font-semibold bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-purple-600">
-              AI Chat helper
+              AI Chat Helper
             </h1>
           </div>
-          <div>
-            {/* Bell Icon */}
-            <button className="group relative p-2 hover:bg-gray-100 rounded-lg transion-all duration-200">
+          <div className="flex gap-2">
+            <button className="group relative p-2 hover:bg-gray-100 rounded-lg transition-all duration-200">
               <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -30,7 +74,6 @@ const Dashboard = () => {
                 />
               </svg>
             </button>
-            {/* Info Icon */}
             <button className="p-2 hover:bg-gray-100 rounded-lg transition-all duration-200 group">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -50,63 +93,108 @@ const Dashboard = () => {
           </div>
         </div>
 
-        {/* Blank block for chat prompts */}
-        <div className="mt-6 bg-white rounded-lg p-4 border border-gray-300 shadow-sm h-64 overflow-y-auto">
-          {/* Placeholder for chat prompts */}
-          <p className="text-gray-500 text-center">
-            Your prompts will appear here...
-          </p>
+        <div className="bg-white/80 backdrop-blur-sm rounded-xl p-4 border border-gray-200 shadow-sm h-[400px] overflow-y-auto">
+          {messages.map((message, index) => (
+            <div key={index} className="mb-6 last:mb-0">
+              <div
+                className={`flex items-start gap-3 ${
+                  message.type === "user" ? "justify-end" : ""
+                }`}
+              >
+                {message.type === "bot" && (
+                  <div className="flex-shrink-0">
+                    <div className="w-8 h-8 bg-gradient-to-br from-indigo-500 to-purple-500 text-white rounded-full flex items-center justify-center font-bold shadow-md">
+                      B
+                    </div>
+                  </div>
+                )}
+                <div
+                  className={`max-w-[80%] px-4 py-2.5 rounded-2xl ${
+                    message.type === "user"
+                      ? "bg-gradient-to-r from-blue-500 to-indigo-500 text-white"
+                      : "bg-gray-100 text-gray-700"
+                  }`}
+                >
+                  {message.text}
+                </div>
+              </div>
+
+              {message.type === "bot" && (
+                <div className="flex items-center gap-2 mt-2 ml-11">
+                  <button
+                    onClick={() => handleRegenerate(index)}
+                    className="p-1.5 hover:bg-gray-100 rounded-lg transition-all duration-200 group"
+                    title="Regenerate response"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 group-hover:rotate-180 transition-transform duration-500"
+                      viewBox="0 0 20 20"
+                      fill="currentColor"
+                    >
+                      <path
+                        fillRule="evenodd"
+                        d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
+                        clipRule="evenodd"
+                        className="text-gray-500 group-hover:text-indigo-300 transition-colors duration-500"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => handleLike(index)}
+                    className="p-1.5 hover:bg-gray-100 rounded-lg transition-all duration-200 group"
+                    title="Like"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-gray-500 group-hover:text-green-600 transition-colors duration-200"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M14 10h4.764a2 2 0 011.789 2.894l-3.5 7A2 2 0 0115.263 21h-4.017c-.163 0-.326-.02-.485-.06L7 20m7-10V5a2 2 0 00-2-2h-.095c-.5 0-.905.405-.905.905 0 .714-.211 1.412-.608 2.006L7 11v9m7-10h-2M7 20H5a2 2 0 01-2-2v-6a2 2 0 012-2h2.5"
+                      />
+                    </svg>
+                  </button>
+                  <button
+                    onClick={() => handleDislike(index)}
+                    className="p-1.5 hover:bg-gray-100 rounded-lg transition-all duration-200 group"
+                    title="Dislike"
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-4 w-4 text-gray-500 group-hover:text-red-600 transition-colors duration-200"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M10 14H5.236a2 2 0 01-1.789-2.894l3.5-7A2 2 0 018.736 3h4.018c.163 0 .326.02.485.06L17 4m-7 10v2a2 2 0 002 2h.095c.5 0 .905-.405.905-.905 0-.714.211-1.412.608-2.006L17 13V4m-7 10h2m5-10h2a2 2 0 012 2v6a2 2 0 01-2 2h-2.5"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              )}
+            </div>
+          ))}
         </div>
 
-        <div className="mt-6 p-4 bg-white/70 backdrop-blur-sm rounded-lg flex justify-between items-center border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-300">
-          <span className="text-gray-600">
-            I have created a project in your Codepen account
-          </span>
-          <button className="text-indigo-600 flex items-center gap-2 px-4 py-2 rounded-lg hover:bg-indigo-50 transition-all duration-300">
-            View
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-4 w-4 animate-bounce"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </button>
-        </div>
-
-        
-        <div className="flex justify-center mt-8">
-          <button className="group flex items-center gap-2 px-6 py-3 rounded-lg bg-white border border-gray-200 hover:border-indigo-400 hover:bg-indigo-50 text-gray-600 hover:text-indigo-600 transition-all duration-300 shadow-sm hover:shadow-md">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 group-hover:rotate-180 transition-transform duration-500"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z"
-                clipRule="evenodd"
-              />
-            </svg>
-            Regenerate response
-          </button>
-        </div>
-        {/* Chat Input Section */}
-        <div className="flex items-center gap-2 p-4 bg-white rounded-lg shadow-sm">
+        <div className="flex items-center gap-2 p-4 bg-white/80 backdrop-blur-sm rounded-xl shadow-sm border border-gray-200">
           <div className="flex-grow relative">
             <input
               type="text"
-              placeholder="Start typing..."
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              placeholder="Type your message..."
               className="w-full px-4 py-2.5 text-gray-700 bg-gray-50 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-400/50 transition-all duration-300"
             />
-
-            {/* Microphone Button */}
             <button className="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 hover:bg-gray-200 rounded-full transition-all duration-200 group">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -125,7 +213,6 @@ const Dashboard = () => {
             </button>
           </div>
 
-          {/* Page Icon */}
           <button className="p-2.5 hover:bg-gray-100 rounded-lg transition-all duration-200 group">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -143,8 +230,10 @@ const Dashboard = () => {
             </svg>
           </button>
 
-          {/* Send Button */}
-          <button className="bg-indigo-600 text-white p-2.5 rounded-lg hover:bg-indigo-700 transition-all duration-200 shadow-md hover:shadow-lg group">
+          <button
+            onClick={handleSend}
+            className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-2.5 rounded-lg hover:opacity-90 transition-all duration-200 shadow-md hover:shadow-lg group"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 transform group-hover:translate-x-0.5 transition-transform duration-200"
@@ -162,14 +251,13 @@ const Dashboard = () => {
           </button>
         </div>
 
-        {/* Free Research Preview Text */}
-        <div className="text-center mt-4 text-sm text-gray-500">
-          Free Research Preview. May produce inaccurate information
-          about people, places, or facts. May 12 Version
+        <div className="text-center text-sm text-gray-500">
+          Free Research Preview. May produce inaccurate information about
+          people, places, or facts. May 12 Version
         </div>
       </div>
     </div>
   );
-}
+};
 
-export default Dashboard
+export default Dashboard;
