@@ -186,74 +186,58 @@ const Dashboard = () => {
             </div>
           ))}
         </div>
-        <div className="flex items-center gap-2 p-4 bg-white/40 backdrop-blur-lg rounded-xl shadow-sm ">
+        <div className="items-center gap-2 p-4 bg-white/40 backdrop-blur-lg rounded-xl shadow-sm">
           <div className="flex-grow relative">
-            <input
-              type="text"
+            <textarea
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type your message..."
+              rows={1}
               className="w-full px-4 py-2.5 text-white transition-all duration-300 
                  rounded-full bg-gradient-to-r from-gray-700 via-black to-blue-700 shadow-lg 
-                 focus:outline-none focus:ring-2 focus:ring-pink-purple-500"
+                 focus:outline-none focus:ring-2 focus:ring-pink-purple-500 resize-none overflow-hidden"
+              onInput={(e) => {
+                e.target.style.height = "auto"; // Reset height for recalculation
+                e.target.style.height = `${e.target.scrollHeight}px`; // Set new height
+              }}
             />
             <button
-              class="absolute text-white right-3 top-1/2 -translate-y-1/2 p-1.5 
-         hover:bg-gray-200 rounded-full transition-all duration-200 group"
+              className="absolute left-3 top-1/2 -translate-y-1/2 p-2 text-white hover:bg-gray-700 rounded-full 
+                 transition-all duration-200 group"
+              title="Voice Input"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="h-5 w-5 text-white group-hover:text-indigo-600 
-           transition-colors duration-200 fill-current"
+                className="h-5 w-5 group-hover:text-pink-500"
+                fill="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path d="M12 14a4 4 0 004-4V7a4 4 0 10-8 0v3a4 4 0 004 4zm-1 5.93v-1.24a6.988 6.988 0 01-5.75-4.606 1 1 0 10-1.92.618A8.988 8.988 0 0011 19.93zM12 22a1 1 0 01-1-1v-3a1 1 0 112 0v3a1 1 0 01-1 1z" />
+              </svg>
+            </button>
+            <button
+              onClick={handleSend}
+              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 text-white bg-gradient-to-r 
+                 from-indigo-500 to-purple-500 rounded-full shadow-md hover:shadow-lg 
+                 transition-all duration-200 group"
+              title="Send"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-5 w-5 transform group-hover:translate-x-0.5 transition-transform duration-200"
+                fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
               >
                 <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M13 7l5 5m0 0l-5 5m5-5H6"
                 />
               </svg>
             </button>
           </div>
-
-          <button className="p-2.5 hover:bg-gray-100 rounded-lg transition-all duration-200 group">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 text-gray-500 group-hover:text-indigo-600 transition-colors duration-200"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-              />
-            </svg>
-          </button>
-
-          <button
-            onClick={handleSend}
-            className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white p-2.5 rounded-lg hover:opacity-90 transition-all duration-200 shadow-md hover:shadow-lg group"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 transform group-hover:translate-x-0.5 transition-transform duration-200"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M13 7l5 5m0 0l-5 5m5-5H6"
-              />
-            </svg>
-          </button>
         </div>
 
         <div className="text-sm text-transparent bg-clip-text bg-gradient-to-r from-white to-pink-200">
