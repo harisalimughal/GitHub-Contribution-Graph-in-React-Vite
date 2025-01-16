@@ -113,7 +113,7 @@ const Dashboard = () => {
             </div>
             <div className="flex gap-3">
               <button className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300">
-              {/* Bell Icon in Header */}
+                {/* Bell Icon in Header */}
                 <div className="relative">
                   <div className="absolute -top-1 -right-1 w-2 h-2 bg-pink-500 rounded-full animate-pulse"></div>
                   <svg
@@ -136,7 +136,27 @@ const Dashboard = () => {
           </div>
 
           {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-3 sm:p-4">
+          <div
+            className="flex-1 overflow-y-auto p-3 sm:p-4 scroll-smooth"
+            style={{
+              scrollbarWidth: "thin",
+              scrollbarColor: "rgba(255, 255, 255, 0.2) transparent",
+              "&::-webkit-scrollbar": {
+                width: "6px",
+              },
+              "&::-webkit-scrollbar-track": {
+                background: "transparent",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                backgroundColor: "rgba(255, 255, 255, 0.2)",
+                borderRadius: "20px",
+                border: "3px solid transparent",
+              },
+              "&::-webkit-scrollbar-thumb:hover": {
+                backgroundColor: "rgba(255, 255, 255, 0.3)",
+              },
+            }}
+          >
             {messages.map((message, index) => (
               <div key={index} className="mb-6 last:mb-0">
                 <div
@@ -152,7 +172,6 @@ const Dashboard = () => {
                     </div>
                   )}
                   {message.isTyping ? (
-                    
                     <SparkleLoader />
                   ) : (
                     <div
@@ -190,7 +209,7 @@ const Dashboard = () => {
                       </svg>
                     </button>
                     <div className="flex gap-2">
-                        {/* Like button */}
+                      {/* Like button */}
                       <button
                         onClick={() => handleLike(index)}
                         className="p-1.5 hover:bg-white/10 rounded-lg transition-all duration-300"
@@ -269,7 +288,6 @@ const Dashboard = () => {
                   </svg>
                 </button>
               ) : (
-                
                 <button
                   onClick={handleSend}
                   className="absolute right-3 bottom-3 p-1.5 bg-blue-500 hover:bg-blue-600 rounded-full transition-all duration-300"
@@ -293,8 +311,8 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-  
-          {/* Footer Text */}
+
+        {/* Footer Text */}
         <div className="text-sm text-center text-white/60">
           Free Research Preview. May produce inaccurate information about
           people, places, or facts. May 12 Version
