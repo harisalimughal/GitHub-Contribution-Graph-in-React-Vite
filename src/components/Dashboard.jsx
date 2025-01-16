@@ -1,5 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 
+
+{/* Sparkle effect before Bot response */}
 const SparkleLoader = () => (
   <div className="flex items-center gap-1.5 py-2">
     <div
@@ -18,6 +20,7 @@ const SparkleLoader = () => (
 );
 
 const Dashboard = () => {
+    {/* Dummy Messages*/}
   const [messages, setMessages] = useState([
     { type: "bot", text: "Hello! How can I assist you today?" },
     { type: "user", text: "What is the weather like today?" },
@@ -37,6 +40,7 @@ const Dashboard = () => {
     scrollToBottom();
   }, [messages]);
 
+    {/* To adjust size of input field- when text grows */}
   const adjustTextareaHeight = () => {
     const textarea = textareaRef.current;
     if (textarea) {
@@ -59,7 +63,7 @@ const Dashboard = () => {
       setTimeout(() => {
         setMessages((prev) => [...prev, { type: "bot", isTyping: true }]);
 
-        // Replace loader with response after 1.5 seconds
+        // Loader with response after 1.5 seconds
         setTimeout(() => {
           setMessages((prev) => {
             const newMessages = [...prev];
@@ -101,7 +105,7 @@ const Dashboard = () => {
       <div className="max-w-3xl mx-auto h-[90vh] flex flex-col space-y-4">
         <div className="bg-white/5 backdrop-blur-md rounded-xl shadow-xl border border-white/10 flex flex-col h-full">
           {/* Header -  inside main container */}
-          <div className="flex items-center justify-between p-4 border-b border-white/10">
+          <div className="flex items-center justify-between p-4 ">
             <div className="flex items-center gap-4">
               <h1 className="text-xl sm:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white to-pink-200">
                 AI Chat Helper
@@ -109,6 +113,7 @@ const Dashboard = () => {
             </div>
             <div className="flex gap-3">
               <button className="p-2 hover:bg-white/20 rounded-lg transition-all duration-300">
+              {/* Bell Icon in Header */}
                 <div className="relative">
                   <div className="absolute -top-1 -right-1 w-2 h-2 bg-pink-500 rounded-full animate-pulse"></div>
                   <svg
@@ -141,12 +146,13 @@ const Dashboard = () => {
                 >
                   {message.type === "bot" && (
                     <div className="flex-shrink-0">
-                      <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-500 text-white rounded-full flex items-center justify-center font-bold shadow-lg">
+                      <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-500 text-white rounded-full flex items-center justify-center font-bold shadow-lg">
                         B
                       </div>
                     </div>
                   )}
                   {message.isTyping ? (
+                    
                     <SparkleLoader />
                   ) : (
                     <div
@@ -184,6 +190,7 @@ const Dashboard = () => {
                       </svg>
                     </button>
                     <div className="flex gap-2">
+                        {/* Like button */}
                       <button
                         onClick={() => handleLike(index)}
                         className="p-1.5 hover:bg-white/10 rounded-lg transition-all duration-300"
@@ -203,6 +210,7 @@ const Dashboard = () => {
                           />
                         </svg>
                       </button>
+                      {/* Dislike button */}
                       <button
                         onClick={() => handleDislike(index)}
                         className="p-1.5 hover:bg-white/10 rounded-lg transition-all duration-300"
@@ -231,7 +239,7 @@ const Dashboard = () => {
           </div>
 
           {/* Input Area - with border-top */}
-          <div className="border-t border-white/10 p-4">
+          <div className=" p-4">
             <div className="relative">
               <textarea
                 ref={textareaRef}
@@ -240,7 +248,7 @@ const Dashboard = () => {
                 onChange={(e) => setInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder="Type your message..."
-                className="w-full px-4 py-2.5 text-white bg-white/10 rounded-2xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-pink-500/50 placeholder-white/50 resize-none overflow-hidden min-h-[40px] max-h-[200px]"
+                className="w-full px-4 py-2.5 text-white bg-white/10 rounded-2xl border border-white/10 focus:outline-none focus:ring-2 focus:ring-blue-500/50 placeholder-white/50 resize-none overflow-hidden min-h-[40px] max-h-[200px]"
                 style={{ lineHeight: "1.5" }}
               />
               {!input.trim() ? (
@@ -261,9 +269,10 @@ const Dashboard = () => {
                   </svg>
                 </button>
               ) : (
+                
                 <button
                   onClick={handleSend}
-                  className="absolute right-3 bottom-2.5 p-1.5 bg-blue-500 hover:bg-blue-600 rounded-lg transition-all duration-300"
+                  className="absolute right-3 bottom-3 p-1.5 bg-blue-500 hover:bg-blue-600 rounded-full transition-all duration-300"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -284,7 +293,8 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
-
+  
+          {/* Footer Text */}
         <div className="text-sm text-center text-white/60">
           Free Research Preview. May produce inaccurate information about
           people, places, or facts. May 12 Version

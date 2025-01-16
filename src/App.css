@@ -1,7 +1,4 @@
-/* styles.css or a similar CSS file */
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+
 
 @keyframes gradient-animation {
   0% {
